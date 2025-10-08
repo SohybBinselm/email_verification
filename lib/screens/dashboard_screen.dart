@@ -27,7 +27,7 @@ class DashboardScreen extends StatelessWidget {
 
               // Welcome text
               Text(
-                'Welcome, ${email.split('@').first}!',
+                'مرحبا بكم في الموقع الرسمي للدقهلية',
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -39,7 +39,7 @@ class DashboardScreen extends StatelessWidget {
 
               // Wait text
               const Text(
-                'Please wait while we prepare your dashboard...',
+                'انتظرونا',
                 style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),

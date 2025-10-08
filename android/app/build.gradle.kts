@@ -8,7 +8,8 @@ plugins {
 android {
     namespace = "com.example.mail_task"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // Commenting out ndkVersion to use the default NDK version
+    // ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
