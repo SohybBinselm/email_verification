@@ -27,7 +27,7 @@ class DashboardScreen extends StatelessWidget {
 
               // Welcome text
               Text(
-                'مرحبا بكم في الموقع الرسمي للدقهلية',
+                'مرحبا بكم في الموقع الرسمي لمحافظة الدقهلية',
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,

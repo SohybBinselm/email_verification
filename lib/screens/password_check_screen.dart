@@ -46,7 +46,6 @@ class _PasswordCheckScreenState extends State<PasswordCheckScreen> {
           'password': _passwordController.text,
         }),
       );
-
       if (response.statusCode == 200) {
         // Login successful, navigate to dashboard
         if (!mounted) return;
@@ -61,9 +60,30 @@ class _PasswordCheckScreenState extends State<PasswordCheckScreen> {
         final responseData = json.decode(response.body);
         setState(() {
           _errorMessage =
-              responseData['message'] ??
-              'Invalid credentials. Please try again.';
+              responseData['error'] ?? 'Invalid credentials. Please try again.';
         });
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(
+                'Error',
+                style: TextStyle(fontSize: 14),
+              ),
+              content: Text(
+                '${responseData['error'] ?? 'Invalid credentials. Please try again.'}',
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
       }
     } catch (e) {
       setState(() {
@@ -79,6 +99,9 @@ class _PasswordCheckScreenState extends State<PasswordCheckScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -167,10 +190,9 @@ class _PasswordCheckScreenState extends State<PasswordCheckScreen> {
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                     ),
-                    child:
-                        _isLoading
-                            ? const CircularProgressIndicator()
-                            : const Text('Login'),
+                    child: _isLoading
+                        ? const CircularProgressIndicator()
+                        : const Text('Login'),
                   ),
                 ),
               ],

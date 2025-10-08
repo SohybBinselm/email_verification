@@ -48,8 +48,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder:
-                (context) => PasswordCheckScreen(email: _emailController.text),
+            builder: (context) =>
+                PasswordCheckScreen(email: _emailController.text),
           ),
         );
       } else if (response.statusCode == 403) {
@@ -77,6 +77,26 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         setState(() {
           _errorMessage = 'Invalid email. Please check and try again.';
         });
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text(
+                'Error',
+                style: TextStyle(fontSize: 14),
+              ),
+              content: Text('${json.decode(response.body)['message']}'),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
       }
     } catch (e) {
       setState(() {
@@ -155,10 +175,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                     ),
-                    child:
-                        _isLoading
-                            ? const CircularProgressIndicator()
-                            : const Text('Log in'),
+                    child: _isLoading
+                        ? const CircularProgressIndicator()
+                        : const Text('Log in'),
                   ),
                 ),
 
